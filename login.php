@@ -14,7 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         if (password_verify($pass, $row['password'])) {
-            echo "success";
+            unset($row['password']); // Optional: don't return hashed password
+            echo json_encode([
+                "message" => "success",
+                "user" => $row
+            ]);
         } else {
             echo " ❗ Invalid email or password ❗";
         }
