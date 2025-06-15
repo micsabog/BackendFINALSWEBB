@@ -12,20 +12,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        if (password_verify($pass, $row['password'])) {
-            unset($row['password']); // Optional: don't return hashed password
+        $user = $result->fetch_assoc();
+        if (password_verify($pass, $user['password'])) {
+            unset($user['password']);
+
             echo json_encode([
                 "message" => "success",
-                "user" => $row
+                "user" => $user
             ]);
         } else {
-            echo " ❗ Invalid email or password ❗";
+            echo json_encode(["message" => " ❗ Invalid email or password ❗"]);
         }
     } else {
-        echo " ❗ Invalid email or password ❗";
+        echo json_encode(["message" => " ❗ Invalid email or password ❗"]);
     }
 }
 
 $conn->close();
 ?>
+

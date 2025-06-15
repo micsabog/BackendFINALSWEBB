@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
 
-        // 🔑 Add the 'role' column and set it to 'employee'
-        $sql = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$hashed_pass', 'employee')";
+        // 🔑 Add the 'role' column and set it to 'employer'
+        $sql = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$hashed_pass', 'employer')";
         if ($conn->query($sql) === TRUE) {
             header("Location: ../frontend/login.html"); 
             exit();
